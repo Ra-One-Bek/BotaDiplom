@@ -49,12 +49,14 @@ class _AuthScreenState extends State<AuthScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            isLoginMode ? 'Вход выполнен успешно' : 'Регистрация успешна',
+            isLoginMode
+                ? 'Вход выполнен успешно'
+                : 'Регистрация успешна',
           ),
         ),
       );
 
-      Navigator.pushReplacementNamed(context, AppRouter.main);
+      Navigator.pushReplacementNamed(context, AppRouter.modules);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -79,7 +81,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 12),
-
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
@@ -120,9 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 24),
-
                   Row(
                     children: [
                       Expanded(
@@ -188,9 +187,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 20),
-
                   Card(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
@@ -244,13 +241,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
                   Center(
                     child: Text(
                       isLoginMode
-                          ? 'Войди, чтобы пройти тест и получить рекомендации'
+                          ? 'Войди, чтобы пройти все модули и получить рекомендации'
                           : 'Создай аккаунт и начни профориентацию',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
