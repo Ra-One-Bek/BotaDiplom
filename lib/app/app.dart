@@ -8,10 +8,10 @@ class CareerGuidanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Career Guidance App',
+      title: 'Proffy',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      initialRoute: AppRouter.auth,
+      initialRoute: AppRouter.splash,
       routes: AppRouter.routes,
     );
   }

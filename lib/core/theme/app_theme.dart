@@ -133,12 +133,26 @@ class AppTheme {
         height: 72,
         backgroundColor: Colors.white,
         indicatorColor: colorScheme.primaryContainer,
-        labelTextStyle: WidgetStateProperty.all(
-          const TextStyle(
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return IconThemeData(color: colorScheme.primary, size: 24);
+          }
+          return IconThemeData(color: Colors.grey.shade600, size: 24);
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: colorScheme.primary,
+            );
+          }
+          return TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-          ),
-        ),
+            color: Colors.grey.shade600,
+          );
+        }),
       ),
 
       snackBarTheme: SnackBarThemeData(

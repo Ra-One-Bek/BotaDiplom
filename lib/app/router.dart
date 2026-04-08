@@ -5,10 +5,12 @@ import 'package:career_guidance_app/features/main/main_shell.dart';
 import 'package:career_guidance_app/features/modules/modules_screen.dart';
 import 'package:career_guidance_app/features/profile/profile_screen.dart';
 import 'package:career_guidance_app/features/recommendations/recommendations_screen.dart';
+import 'package:career_guidance_app/features/splash/splash_screen.dart';
 import 'package:career_guidance_app/features/testing/test_screen.dart';
 
 class AppRouter {
-  static const String auth = '/';
+  static const String splash = '/';
+  static const String auth = '/auth';
   static const String main = '/main';
   static const String modules = '/modules';
   static const String testing = '/testing';
@@ -17,6 +19,7 @@ class AppRouter {
   static const String profile = '/profile';
 
   static Map<String, WidgetBuilder> get routes => {
+        splash: (_) => const SplashScreen(),
         auth: (_) => const AuthScreen(),
         main: (_) => const MainShell(),
         modules: (_) => const ModulesScreen(),
