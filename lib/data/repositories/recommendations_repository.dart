@@ -5,7 +5,9 @@ class RecommendationsRepository {
   final ApiService _apiService = ApiService();
 
   Future<RecommendationResponseModel> getRecommendations(int userId) async {
-    final response = await _apiService.getRequest('/recommendations/$userId');
+    final response =
+        await _apiService.getRequest('/assessment/recommendations/$userId');
+
     return RecommendationResponseModel.fromJson(response);
   }
 }

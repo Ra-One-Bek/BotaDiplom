@@ -54,7 +54,7 @@ class _RecommendationResultScreenState
         child: Column(
           children: [
             _HeroBlock(top),
-            _ProfilePreview(profile),
+            _ProfilePreview(profile: profile),
             _AIBlock(),
             _Alternatives(alternatives),
             const SizedBox(height: 20),
@@ -74,7 +74,41 @@ class _HeroBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final score = (profession['score'] ?? 0).toDouble();
+    // ✅ защита от null
+    if (profession == null) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(20, 60, 20, 30),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF6C63FF), Color(0xFF8E2DE2)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(32),
+          ),
+        ),
+        child: const Column(
+          children: [
+            Text(
+              'Твоя профессия',
+              style: TextStyle(color: Colors.white70),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Профессия пока не определена',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final score = (profession['score'] ?? 0).toDouble();
 
     return Container(
       width: double.infinity,
@@ -97,7 +131,6 @@ class _HeroBlock extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // 🔥 КРУГ С ПРОЦЕНТОМ
           Stack(
             alignment: Alignment.center,
             children: [
@@ -126,7 +159,7 @@ class _HeroBlock extends StatelessWidget {
           const SizedBox(height: 20),
 
           Text(
-            profession['name'],
+            profession['name'] ?? '',
             style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.bold,
@@ -137,7 +170,7 @@ class _HeroBlock extends StatelessWidget {
           const SizedBox(height: 10),
 
           Text(
-            profession['description'],
+            profession['description'] ?? '',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white70),
           ),
@@ -148,181 +181,103 @@ class _HeroBlock extends StatelessWidget {
 }
 
 class _ProfilePreview extends StatelessWidget {
-  final Map profile;
+  final Map<String, dynamic> profile;
 
-  const _ProfilePreview(this.profile);
+  const _ProfilePreview({
+    required this.profile,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final entries = profile.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
+    final theme = Theme.of(context);
 
-    final top3 = entries.take(3).toList();
+    final entries = <MapEntry<String, double>>[];
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Card(
+    void addIfExists(String label, dynamic value) {
+      if (value is Map<String, dynamic>) {
+        final key = value['key']?.toString();
+        final raw = value['value'];
+        final score = raw is num ? raw.toDouble() : 0.0;
+
+        if (key != null && key.isNotEmpty) {
+          entries.add(MapEntry('$label: $key', score));
+        }
+      }
+    }
+
+    addIfExists('Темперамент', profile['temperament']);
+    addIfExists('Стиль мышления', profile['thinkingStyle']);
+    addIfExists('Учебный профиль', profile['studyProfile']);
+    addIfExists('Ценности', profile['valuesProfile']);
+
+    final directions = profile['directions'];
+    if (directions is List) {
+      for (final item in directions) {
+        if (item is Map<String, dynamic>) {
+          final key = item['key']?.toString();
+          final raw = item['value'];
+          final score = raw is num ? raw.toDouble() : 0.0;
+
+          if (key != null && key.isNotEmpty) {
+            entries.add(MapEntry('Направление: $key', score));
+          }
+        }
+      }
+    }
+
+    entries.sort((a, b) => b.value.compareTo(a.value));
+
+    if (entries.isEmpty) {
+      return Card(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              const Row(
-                children: [
-                  Text('Твой профиль',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 10),
+          child: Text(
+            'Данные профиля пока недоступны',
+            style: theme.textTheme.bodyMedium,
+          ),
+        ),
+      );
+    }
 
-              ...top3.map(
-                (e) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Профиль пользователя',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            ...entries.take(8).map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
                   children: [
-                    Text(e.key),
-                    Text('${e.value}'),
+                    Expanded(
+                      child: Text(
+                        e.key,
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      e.value.toStringAsFixed(1),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-              const SizedBox(height: 10),
-
-              TextButton(
-                onPressed: () {
-                  showDialog(
-                  context: context,
-                  builder: (_) {
-                    final entries = profile.entries.toList()
-                      ..sort((a, b) => (b.value as num).compareTo(a.value as num));
-
-                    return Dialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 420,
-                          maxHeight: 520,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Полный профиль',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(height: 18),
-                              Expanded(
-                                child: ListView.separated(
-                                  itemCount: entries.length,
-                                  separatorBuilder: (_, __) => const SizedBox(height: 10),
-                                  itemBuilder: (_, index) {
-                                    final entry = entries[index];
-                                    final title = _formatProfileKey(entry.key.toString());
-                                    final value = (entry.value as num).toInt();
-
-                                    return Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 14,
-                                        vertical: 12,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFF5F2FF),
-                                        borderRadius: BorderRadius.circular(18),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              title,
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 6,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.deepPurple.withOpacity(0.12),
-                                              borderRadius: BorderRadius.circular(999),
-                                            ),
-                                            child: Text(
-                                              '$value',
-                                              style: const TextStyle(
-                                                color: Colors.deepPurple,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 14),
-                              SizedBox(
-                                width: double.infinity,
-                                child: TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('Закрыть'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-                },
-                child: const Text('Смотреть полностью'),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
-  }
-  String _formatProfileKey(String key) {
-    switch (key) {
-      case 'analytical':
-        return 'Аналитика';
-      case 'creative':
-        return 'Креативность';
-      case 'social':
-        return 'Коммуникация';
-      case 'technical':
-        return 'Техническое мышление';
-      case 'structure':
-        return 'Структурность';
-      case 'business':
-        return 'Бизнес-мышление';
-      case 'direction.business':
-        return 'Склонность к бизнесу';
-      case 'values.leader':
-        return 'Лидерские ценности';
-      case 'temperament.choleric':
-        return 'Темперамент: холерик';
-      case 'temperament.melancholic':
-        return 'Темперамент: меланхолик';
-      case 'temperament.phlegmatic':
-        return 'Темперамент: флегматик';
-      case 'temperament.sanguine':
-        return 'Темперамент: сангвиник';
-      default:
-        return key.replaceAll('.', ' • ');
-    }
   }
 }
 

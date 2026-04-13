@@ -9,20 +9,37 @@ class RecommendationsController extends ChangeNotifier {
 
   bool isLoading = false;
   String? errorMessage;
-
   RecommendationResponseModel? recommendationData;
 
-  List<ProfessionModel> get professions =>
-      recommendationData?.professions ?? [];
+  ProfessionModel? get topProfession => recommendationData?.topProfession;
+  List<ProfessionModel> get alternatives =>
+      recommendationData?.alternatives ?? [];
+  Map<String, dynamic> get profile => recommendationData?.profile ?? {};
 
-  String get summary => recommendationData?.summary ?? '';
+  String get title => recommendationData?.explanation.title ?? '';
+  String get summary => recommendationData?.explanation.summary ?? '';
 
-  String get dominantField => recommendationData?.dominantField ?? '';
+  String get finalDirection =>
+      recommendationData?.hybridRecommendation.finalDirection ?? '';
+
+  String get ruleBasedDirection =>
+      recommendationData?.hybridRecommendation.ruleBasedDirection ?? '';
+
+  String get mlPredictedDirection =>
+      recommendationData?.hybridRecommendation.mlPredictedDirection ?? '';
+
+  double get mlConfidence =>
+      recommendationData?.hybridRecommendation.mlConfidence ?? 0;
+
+  String get modelVersion =>
+      recommendationData?.hybridRecommendation.modelVersion ?? '';
+
+  String get source =>
+      recommendationData?.hybridRecommendation.source ?? '';
 
   Future<void> loadRecommendations() async {
     try {
       final userId = AuthController.instance.currentUserId;
-
       if (userId == null) {
         throw Exception('Пользователь не авторизован');
       }
