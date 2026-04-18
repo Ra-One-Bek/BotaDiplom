@@ -11,6 +11,8 @@ class AuthController extends ChangeNotifier {
   Map<String, dynamic>? userData;
   String? accessToken;
 
+  bool _isDisposed = false;
+
   static final AuthController instance = AuthController._internal();
 
   factory AuthController() {
@@ -18,6 +20,18 @@ class AuthController extends ChangeNotifier {
   }
 
   AuthController._internal();
+
+  void _safeNotify() {
+    if (!_isDisposed) {
+      notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
 
   int? get currentUserId {
     final id = userData?['id'];
@@ -33,7 +47,7 @@ class AuthController extends ChangeNotifier {
     try {
       isLoading = true;
       errorMessage = null;
-      notifyListeners();
+      _safeNotify();
 
       final response = await _authRepository.login(
         email: email,
@@ -55,7 +69,7 @@ class AuthController extends ChangeNotifier {
       return false;
     } finally {
       isLoading = false;
-      notifyListeners();
+      _safeNotify();
     }
   }
 
@@ -67,7 +81,7 @@ class AuthController extends ChangeNotifier {
     try {
       isLoading = true;
       errorMessage = null;
-      notifyListeners();
+      _safeNotify();
 
       final response = await _authRepository.register(
         name: name,
@@ -90,7 +104,7 @@ class AuthController extends ChangeNotifier {
       return false;
     } finally {
       isLoading = false;
-      notifyListeners();
+      _safeNotify();
     }
   }
 
@@ -102,7 +116,7 @@ class AuthController extends ChangeNotifier {
     if (token != null && user != null) {
       accessToken = token;
       userData = Map<String, dynamic>.from(jsonDecode(user) as Map);
-      notifyListeners();
+      _safeNotify();
     }
   }
 
@@ -111,6 +125,6 @@ class AuthController extends ChangeNotifier {
     await prefs.clear();
     accessToken = null;
     userData = null;
-    notifyListeners();
+    _safeNotify();
   }
 }

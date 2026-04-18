@@ -20,7 +20,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -105,7 +104,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Bota Career',
+                          'Proffy',
                           style: theme.textTheme.headlineMedium?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
