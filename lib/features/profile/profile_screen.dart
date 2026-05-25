@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:career_guidance_app/app/router.dart';
 import 'package:career_guidance_app/features/auth/auth_controller.dart';
+import '../../core/services/localization_extension.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -38,16 +39,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Выйти из аккаунта?'),
-        content: const Text('Ты действительно хочешь выйти из аккаунта?'),
+        title: Text(context.loc.logoutTitle),
+        content: Text(context.loc.logoutDescription),
+
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Отмена'),
+            child: Text(context.loc.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Выйти'),
+            child: Text(context.loc.logout),
           ),
         ],
       ),
@@ -90,10 +92,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Профиль'),
+        title: Text(context.loc.profileTitle),
         actions: [
           IconButton(
-            tooltip: 'Обновить',
+          tooltip: context.loc.refresh,
             onPressed: _refreshProfile,
             icon: const Icon(Icons.refresh),
           ),
@@ -110,96 +112,105 @@ class _ProfileScreenState extends State<ProfileScreen> {
               firstLetter: _firstLetter,
             ),
             const SizedBox(height: 16),
-            const _SectionCard(
-              title: 'О приложении',
+            _SectionCard(
+              title: context.loc.aboutApp,
               children: [
                 _InfoTile(
                   icon: Icons.school_outlined,
-                  title: 'Назначение',
-                  subtitle: 'Профориентация школьников',
+                  title: context.loc.purpose,
+                  subtitle: context.loc.purposeDescription,
                 ),
                 _InfoTile(
                   icon: Icons.quiz_outlined,
-                  title: 'Функция',
-                  subtitle: 'Тестирование интересов и направлений',
+                  title: context.loc.function,
+                  subtitle: context.loc.functionDescription,
                 ),
                 _InfoTile(
                   icon: Icons.auto_awesome_outlined,
-                  title: 'Результат',
-                  subtitle: 'Подбор профессий по результатам теста',
+                  title: context.loc.result,
+                  subtitle: context.loc.resultDescription,
                 ),
                 _InfoTile(
                   icon: Icons.smart_toy_outlined,
-                  title: 'AI помощник',
-                  subtitle: 'Ответы на вопросы по профориентации',
+                  title: context.loc.aiAssistant,
+                  subtitle: context.loc.aiAssistantDescription,
                 ),
               ],
             ),
             const SizedBox(height: 16),
             _SectionCard(
-              title: 'Мой аккаунт',
+              title: context.loc.myAccount,
               children: [
                 _AccountRow(
                   icon: Icons.person_outline,
-                  title: 'Имя пользователя',
+                  title: context.loc.userName,
                   value: _userName,
                 ),
                 _AccountRow(
                   icon: Icons.alternate_email,
-                  title: 'Почта',
+                  title: context.loc.email,
                   value: _userEmail,
                 ),
                 _AccountRow(
                   icon: Icons.verified_user_outlined,
-                  title: 'Статус',
-                  value: 'Аккаунт активен',
+                  title: context.loc.status,
+                  value: context.loc.accountActive,
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            const _SectionCard(
-              title: 'Мой прогресс',
+            _SectionCard(
+              title: context.loc.myProgress,
               children: [
                 _ProgressTipCard(
-                  title: 'Модули профориентации',
-                  subtitle:
-                      'Проходи модули последовательно, чтобы получить более точную рекомендацию.',
+                  title: context.loc.modulesTitle,
+                  subtitle: context.loc.modulesDescription,
                   icon: Icons.dashboard_customize_outlined,
                 ),
                 _ProgressTipCard(
-                  title: 'Итоговые рекомендации',
-                  subtitle:
-                      'После прохождения модулей смотри подходящие профессии и курсы.',
+                  title: context.loc.recommendationsTitle,
+                  subtitle: context.loc.recommendationsDescription,
                   icon: Icons.workspace_premium_outlined,
                 ),
               ],
             ),
             const SizedBox(height: 16),
             _SectionCard(
-              title: 'Быстрые действия',
+              title: context.loc.quickActions,
               children: [
                 _ActionTile(
                   icon: Icons.grid_view_rounded,
-                  title: 'Перейти к модулям',
-                  subtitle: 'Открыть модули профориентации',
+                  title: context.loc.goToModules,
+                  subtitle: context.loc.goToModulesDescription,
                   onTap: _goToModules,
                 ),
                 _ActionTile(
                   icon: Icons.auto_awesome_rounded,
-                  title: 'Посмотреть рекомендации',
-                  subtitle: 'Открыть экран итоговых результатов',
+                  title: context.loc.openRecommendations,
+                  subtitle: context.loc.openRecommendationsDescription,
                   onTap: _goToRecommendations,
                 ),
                 _ActionTile(
                   icon: Icons.smart_toy_rounded,
-                  title: 'Открыть AI помощника',
-                  subtitle: 'Задать вопросы по профессиям',
+                  title: context.loc.openAi,
+                  subtitle: context.loc.openAiDescription,
                   onTap: _goToAi,
                 ),
                 _ActionTile(
+                  icon: Icons.language_rounded,
+                  title: context.loc.language,
+                  subtitle: 'en/ru/kz',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRouter.language,
+                    );
+                  },
+                ),
+                _ActionTile(
                   icon: Icons.logout_rounded,
-                  title: 'Выйти из аккаунта',
-                  subtitle: 'Завершить текущую сессию',
+                  title: context.loc.logoutAction,
+                  subtitle: context.loc.logoutActionDescription,
                   onTap: _logout,
                   isDestructive: true,
                 ),
@@ -207,34 +218,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             _SectionCard(
-              title: 'Полезные советы',
+              title: context.loc.helpfulTips,
               children: [
                 _AdviceCard(
                   color: Colors.deepPurple.shade50,
                   icon: Icons.lightbulb_outline,
-                  title: 'Проходи все модули',
-                  subtitle:
-                      'Так система сможет подобрать более точную профессию именно под тебя.',
+                  title: context.loc.tipModules,
+                  subtitle: context.loc.tipModulesDescription,
                 ),
                 _AdviceCard(
                   color: Colors.blue.shade50,
                   icon: Icons.update_outlined,
-                  title: 'Обновляй результат',
-                  subtitle:
-                      'Если меняешь ответы в модулях, итоговые рекомендации тоже обновляются.',
+                  title: context.loc.tipUpdate,
+                  subtitle: context.loc.tipUpdateDescription,
                 ),
                 _AdviceCard(
                   color: Colors.green.shade50,
                   icon: Icons.menu_book_outlined,
-                  title: 'Изучай курсы',
-                  subtitle:
-                      'После результата смотри курсы по своему направлению и пробуй себя в профессии.',
+                  title: context.loc.tipCourses,
+                  subtitle: context.loc.tipCoursesDescription,
                 ),
               ],
             ),
             const SizedBox(height: 20),
             Text(
-              'Proffy · профориентация и рекомендации',
+              context.loc.profileFooter,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -322,9 +330,9 @@ class _ProfileHeaderCard extends StatelessWidget {
               color: Colors.white.withOpacity(0.14),
               borderRadius: BorderRadius.circular(999),
             ),
-            child: const Text(
-              'Твой личный кабинет в Proffy',
-              style: TextStyle(
+            child: Text(
+              context.loc.profileCabinet,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),

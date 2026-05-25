@@ -1,0 +1,132 @@
+{
+  "@@locale": "kk",
+
+  "appName": "Bota",
+  "login": "Кіру",
+  "register": "Тіркелу",
+  "profile": "Профиль",
+  "language": "Тіл",
+
+  "refresh": "Жаңарту",
+
+    "profileTitle": "Профиль",
+
+    "logoutTitle": "Аккаунттан шығу?",
+    "logoutDescription": "Шынымен аккаунттан шыққыңыз келе ме?",
+    "cancel": "Бас тарту",
+    "logout": "Шығу",
+
+    "aboutApp": "Қосымша туралы",
+
+    "purpose": "Мақсаты",
+    "purposeDescription": "Оқушыларға арналған кәсіби бағдар",
+
+    "function": "Функциясы",
+    "functionDescription": "Қызығушылықтар мен бағыттарды тестілеу",
+
+    "result": "Нәтиже",
+    "resultDescription": "Тест нәтижесі бойынша мамандық ұсыну",
+
+    "aiAssistant": "AI көмекшісі",
+    "aiAssistantDescription": "Кәсіби бағдар бойынша сұрақтарға жауаптар",
+
+    "myAccount": "Менің аккаунтым",
+
+    "userName": "Пайдаланушы аты",
+    "email": "Электрондық пошта",
+    "status": "Мәртебе",
+    "accountActive": "Аккаунт белсенді",
+
+    "myProgress": "Менің прогрессім",
+
+    "modulesTitle": "Кәсіби бағдар модульдері",
+    "modulesDescription": "Дәлірек ұсыныстар алу үшін модульдерді ретімен өтіңіз.",
+
+    "recommendationsTitle": "Қорытынды ұсыныстар",
+    "recommendationsDescription": "Модульдерді аяқтағаннан кейін сәйкес мамандықтар мен курстарды қараңыз.",
+
+    "quickActions": "Жылдам әрекеттер",
+
+    "goToModules": "Модульдерге өту",
+    "goToModulesDescription": "Кәсіби бағдар модульдерін ашу",
+
+    "openRecommendations": "Ұсыныстарды қарау",
+    "openRecommendationsDescription": "Қорытынды нәтижелер экранын ашу",
+
+    "openAi": "AI көмекшісін ашу",
+    "openAiDescription": "Мамандықтар бойынша сұрақтар қою",
+
+    "logoutAction": "Аккаунттан шығу",
+    "logoutActionDescription": "Ағымдағы сессияны аяқтау",
+
+    "helpfulTips": "Пайдалы кеңестер",
+
+    "tipModules": "Барлық модульдерді өтіңіз",
+    "tipModulesDescription": "Бұл жүйеге сізге дәлірек мамандық таңдауға көмектеседі.",
+
+    "tipUpdate": "Нәтижені жаңартыңыз",
+    "tipUpdateDescription": "Егер жауаптар өзгерсе, ұсыныстар да өзгереді.",
+
+    "tipCourses": "Курстарды зерттеңіз",
+    "tipCoursesDescription": "Нәтижеден кейін курстарды қарап, мамандықтарды байқап көріңіз.",
+
+    "profileFooter": "Proffy · кәсіби бағдар және ұсыныстар",
+
+    "profileCabinet": "Proffy-дегі жеке кабинетіңіз",
+
+    "navModules": "Модульдер",
+    "navResult": "Қорытынды",
+    "navAi": "AI",
+    "navProfile": "Профиль",
+
+    "modulesAppBarTitle": "Кәсіби бағдар модульдері",
+    "modulesIntro": "Қорытынды ұсыныстарды ашу үшін барлық модульдерді өтіңіз",
+    "modulesNoData": "Модульдер бойынша деректер жоқ",
+    "viewRecommendations": "Ұсыныстарды қарау",
+    "yourProgress": "Сіздің прогрессіңіз",
+    "modulesCompleted": "{completed} модульдің {total} ішінен аяқталды",
+    "moduleCompleted": "Аяқталды",
+    "moduleInProgress": "Орындалуда",
+    "moduleNotStarted": "Басталмаған",
+    "retry": "Қайталау",
+
+    "moduleTestTitle": "Модульден өту",
+    "userIdNotFound": "userId табылмады",
+    "answerAllQuestions": "Барлық сұрақтарға жауап беріңіз",
+    "moduleCompletedSuccess": "Модуль сәтті аяқталды",
+    "moduleDataNotFound": "Модуль деректері табылмады",
+    "finishModule": "Модульді аяқтау",
+    "resultTitle":"Қорытынды",
+    "yourProfession":"Сіздің мамандығыңыз",
+    "professionNotDefined":"Мамандық әлі анықталмады",
+    "finishModulesForResult":"Нақты нәтиже үшін кемінде бір модуль өтіңіз",
+    "modulesProgress":"Модуль прогресі",
+    "profileTitle":"Пайдаланушы профилі",
+    "hide":"Жасыру",
+    "showAll":"Барлығын көрсету",
+    "profileUnavailable":"Профиль деректері жоқ",
+    "temperament":"Темперамент",
+    "thinkingStyle":"Ойлау стилі",
+    "studyProfile":"Оқу профилі",
+    "values":"Құндылықтар",
+    "direction":"Бағыт",
+    "antiDirection":"Қарсы бағыт",
+    "alternatives":"Баламалы мамандықтар",
+    "similarity":"Ұқсастық",
+    "coursesTitle":"Ұсынылған курстар",
+    "courseTitle":"Курс",
+    "aboutCourse":"Курс туралы",
+    "whatYouGet":"Не аласыз",
+    "understandBasics":"Негіздерін түсінесіз",
+    "tryProfession":"Өзіңізді байқап көресіз",
+    "practiceSkills":"Практикалық дағдылар аласыз",
+    "understandSphere":"Сала сізге сай екенін түсінесіз",
+    "understood":"Түсінікті",
+    "recommendationEmptyBanner": "Модульдерді өтіңіз, сонда біз сізге сәйкес мамандықты ұсынып, сәйкестік пайызын көрсетеміз.",
+    "recommendationPartialBanner": "Бұл алдын ала нәтиже: {completed} модульдің {total} ішінен аяқталды. Барлық модульдерді аяқтасаңыз, ұсыныс дәлірек болады.",
+    "whyProfessionEmpty": "Модульдерді өткеннен кейін бұл мамандық неге сізге сәйкес келетінін көрсетеміз.",
+    "whyProfessionDefault": "Бұл ұсыныс сіздің жауаптарыңызға, күшті жақтарыңызға және қызығушылықтарыңызға негізделген.",
+    "defaultCourseLevel": "Бастапқы",
+    "defaultCourseDuration": "4 апта",
+    "userNotFoundLoginAgain": "Пайдаланушы табылмады. Қайта кіріңіз."
+}

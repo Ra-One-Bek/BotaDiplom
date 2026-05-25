@@ -1,0 +1,132 @@
+{
+  "@@locale": "ru",
+
+  "appName": "Bota",
+  "login": "Вход",
+  "register": "Регистрация",
+  "profile": "Профиль",
+  "language": "Язык",
+
+  "refresh": "Обновить",
+
+    "profileTitle": "Профиль",
+
+    "logoutTitle": "Выйти из аккаунта?",
+    "logoutDescription": "Ты действительно хочешь выйти из аккаунта?",
+    "cancel": "Отмена",
+    "logout": "Выйти",
+
+    "aboutApp": "О приложении",
+
+    "purpose": "Назначение",
+    "purposeDescription": "Профориентация школьников",
+
+    "function": "Функция",
+    "functionDescription": "Тестирование интересов и направлений",
+
+    "result": "Результат",
+    "resultDescription": "Подбор профессий по результатам теста",
+
+    "aiAssistant": "AI помощник",
+    "aiAssistantDescription": "Ответы на вопросы по профориентации",
+
+    "myAccount": "Мой аккаунт",
+
+    "userName": "Имя пользователя",
+    "email": "Почта",
+    "status": "Статус",
+    "accountActive": "Аккаунт активен",
+
+    "myProgress": "Мой прогресс",
+
+    "modulesTitle": "Модули профориентации",
+    "modulesDescription": "Проходи модули последовательно, чтобы получить более точную рекомендацию.",
+
+    "recommendationsTitle": "Итоговые рекомендации",
+    "recommendationsDescription": "После прохождения модулей смотри подходящие профессии и курсы.",
+
+    "quickActions": "Быстрые действия",
+
+    "goToModules": "Перейти к модулям",
+    "goToModulesDescription": "Открыть модули профориентации",
+
+    "openRecommendations": "Посмотреть рекомендации",
+    "openRecommendationsDescription": "Открыть экран итоговых результатов",
+
+    "openAi": "Открыть AI помощника",
+    "openAiDescription": "Задать вопросы по профессиям",
+
+    "logoutAction": "Выйти из аккаунта",
+    "logoutActionDescription": "Завершить текущую сессию",
+
+    "helpfulTips": "Полезные советы",
+
+    "tipModules": "Проходи все модули",
+    "tipModulesDescription": "Так система сможет подобрать более точную профессию именно под тебя.",
+
+    "tipUpdate": "Обновляй результат",
+    "tipUpdateDescription": "Если меняешь ответы в модулях, итоговые рекомендации тоже обновляются.",
+
+    "tipCourses": "Изучай курсы",
+    "tipCoursesDescription": "После результата смотри курсы по своему направлению и пробуй себя в профессии.",
+
+    "profileFooter": "Proffy · профориентация и рекомендации",
+
+    "profileCabinet": "Твой личный кабинет в Proffy",
+
+    "navModules": "Модули",
+    "navResult": "Итог",
+    "navAi": "AI",
+    "navProfile": "Профиль",
+
+    "modulesAppBarTitle": "Модули профориентации",
+    "modulesIntro": "Пройди все модули, чтобы открыть итоговые рекомендации",
+    "modulesNoData": "Нет данных по модулям",
+    "viewRecommendations": "Посмотреть рекомендации",
+    "yourProgress": "Твой прогресс",
+    "modulesCompleted": "{completed} из {total} модулей завершено",
+    "moduleCompleted": "Пройден",
+    "moduleInProgress": "В процессе",
+    "moduleNotStarted": "Не начат",
+    "retry": "Повторить",
+
+    "moduleTestTitle": "Прохождение модуля",
+    "userIdNotFound": "Не найден userId",
+    "answerAllQuestions": "Пожалуйста, ответьте на все вопросы",
+    "moduleCompletedSuccess": "Модуль успешно завершён",
+    "moduleDataNotFound": "Данные модуля не найдены",
+    "finishModule": "Завершить модуль",
+    "resultTitle":"Итог",
+    "yourProfession":"Твоя профессия",
+    "professionNotDefined":"Профессия пока не определена",
+    "finishModulesForResult":"Чтобы получить точный результат, пройди хотя бы один модуль",
+    "modulesProgress":"Прогресс модулей",
+    "profileTitle":"Профиль пользователя",
+    "hide":"Скрыть",
+    "showAll":"Показать все",
+    "profileUnavailable":"Данные профиля пока недоступны",
+    "temperament":"Темперамент",
+    "thinkingStyle":"Стиль мышления",
+    "studyProfile":"Учебный профиль",
+    "values":"Ценности",
+    "direction":"Направление",
+    "antiDirection":"Анти-направление",
+    "alternatives":"Альтернативные профессии",
+    "similarity":"Схожесть",
+    "coursesTitle":"Курсы по результатам",
+    "courseTitle":"Курс",
+    "aboutCourse":"О курсе",
+    "whatYouGet":"Что ты получишь",
+    "understandBasics":"Поймёшь основы этого направления",
+    "tryProfession":"Сможешь попробовать себя в профессии",
+    "practiceSkills":"Соберёшь первые практические навыки",
+    "understandSphere":"Поймёшь подходит ли тебе эта сфера",
+    "understood":"Понятно",
+    "recommendationEmptyBanner": "Пройди модули, чтобы мы подобрали подходящую профессию и показали процент совпадения.",
+    "recommendationPartialBanner": "Сейчас это предварительный результат: пройдено {completed} из {total} модулей. Если завершить все модули, рекомендация станет точнее.",
+    "whyProfessionEmpty": "После прохождения модулей мы покажем, почему именно эта профессия тебе подходит.",
+    "whyProfessionDefault": "Эта рекомендация собрана на основе твоих ответов, сильных сторон и интересов.",
+    "defaultCourseLevel": "Начальный",
+    "defaultCourseDuration": "4 недели",
+    "userNotFoundLoginAgain": "Пользователь не найден. Войдите заново."
+}

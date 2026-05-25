@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:career_guidance_app/data/services/assessment_service.dart';
 import 'package:career_guidance_app/features/auth/auth_controller.dart';
 import 'package:career_guidance_app/features/modules/recommendation_refresh_bus.dart';
+import '../../core/services/localization_extension.dart';
 
 class RecommendationResultScreen extends StatefulWidget {
   const RecommendationResultScreen({super.key});
@@ -47,7 +48,7 @@ class _RecommendationResultScreenState extends State<RecommendationResultScreen>
     try {
       final userId = _auth.currentUserId;
       if (userId == null) {
-        throw Exception('Пользователь не найден. Войдите заново.');
+        throw Exception(context.loc.userNotFoundLoginAgain);
       }
 
       final data = await _service.getRecommendations(
@@ -80,7 +81,7 @@ class _RecommendationResultScreenState extends State<RecommendationResultScreen>
 
     if (_errorMessage != null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Итог')),
+        appBar: AppBar(title: Text(context.loc.resultTitle)),
         body: _ErrorState(
           message: _errorMessage!,
           onRetry: _load,
@@ -104,10 +105,10 @@ class _RecommendationResultScreenState extends State<RecommendationResultScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Итог'),
+        title: Text(context.loc.resultTitle),
         actions: [
           IconButton(
-            tooltip: 'Обновить',
+            tooltip: context.loc.refresh,
             onPressed: _load,
             icon: const Icon(Icons.refresh),
           ),
@@ -124,19 +125,20 @@ class _RecommendationResultScreenState extends State<RecommendationResultScreen>
               explanation: explanation,
             ),
             if (isEmpty)
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 child: _InfoBanner(
-                  text:
-                      'Пройди модули, чтобы мы подобрали подходящую профессию и показали процент совпадения.',
+                  text: context.loc.recommendationEmptyBanner,
                 ),
               ),
             if (!isEmpty && isPartial)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 child: _InfoBanner(
-                  text:
-                      'Сейчас это предварительный результат: пройдено $completedModules из $totalModules модулей. Если завершить все модули, рекомендация станет точнее.',
+                  text: context.loc.recommendationPartialBanner(
+                    completedModules,
+                    totalModules,
+                  ),
                 ),
               ),
             const SizedBox(height: 16),
@@ -174,9 +176,9 @@ class _HeroBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final percent = ((profession?['matchPercent'] ?? 0) as num).toInt();
     final professionName =
-        profession?['name']?.toString() ?? 'Профессия пока не определена';
+        profession?['name']?.toString() ?? context.loc.professionNotDefined;
     final description = profession?['description']?.toString() ??
-        'Чтобы получить точный результат, пройди хотя бы один модуль.';
+        context.loc.finishModulesForResult;
     final completionPercent = ((completion['percent'] ?? 0) as num).toInt();
 
     return Container(
@@ -194,8 +196,8 @@ class _HeroBlock extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text(
-            'Твоя профессия',
+          Text(
+            context.loc.yourProfession,
             style: TextStyle(color: Colors.white70),
           ),
           const SizedBox(height: 16),
@@ -247,7 +249,7 @@ class _HeroBlock extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Text(
-              'Прогресс модулей: $completionPercent%',
+              '${context.loc.modulesProgress}: $completionPercent%',
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -298,10 +300,10 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
       }
     }
 
-    addIfExists('Темперамент', widget.profile['temperament']);
-    addIfExists('Стиль мышления', widget.profile['thinkingStyle']);
-    addIfExists('Учебный профиль', widget.profile['studyProfile']);
-    addIfExists('Ценности', widget.profile['valuesProfile']);
+    addIfExists(context.loc.temperament, widget.profile['temperament']);
+    addIfExists(context.loc.thinkingStyle, widget.profile['thinkingStyle']);
+    addIfExists(context.loc.studyProfile, widget.profile['studyProfile']);
+    addIfExists(context.loc.values, widget.profile['valuesProfile']);
 
     final directions = widget.profile['directions'];
     if (directions is List) {
@@ -311,7 +313,7 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
           final raw = item['value'];
           final score = raw is num ? raw.toDouble() : 0.0;
           if (key != null && key.isNotEmpty) {
-            entries.add(MapEntry('Направление: $key', score));
+            entries.add(MapEntry('${context.loc.direction}: $key', score));
           }
         }
       }
@@ -325,7 +327,7 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
           final raw = item['value'];
           final score = raw is num ? raw.toDouble() : 0.0;
           if (key != null && key.isNotEmpty) {
-            entries.add(MapEntry('Анти-направление: $key', score));
+            entries.add(MapEntry('${context.loc.antiDirection}: $key', score));
           }
         }
       }
@@ -339,7 +341,7 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            'Данные профиля пока недоступны',
+            context.loc.profileUnavailable,
             style: theme.textTheme.bodyMedium,
           ),
         ),
@@ -359,7 +361,7 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
               children: [
                 Expanded(
                   child: Text(
-                    'Профиль пользователя',
+                    context.loc.profileTitle,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -371,7 +373,9 @@ class _ProfilePreviewState extends State<_ProfilePreview> {
                       _expanded = !_expanded;
                     });
                   },
-                  child: Text(_expanded ? 'Скрыть' : 'Показать все'),
+                  child: Text(_expanded
+                  ? context.loc.hide
+                  : context.loc.showAll),
                 ),
               ],
             ),
@@ -419,9 +423,8 @@ class _WhyThisProfessionBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = isEmpty
-        ? 'После прохождения модулей мы покажем, почему именно эта профессия тебе подходит.'
-        : (explanation ??
-            'Эта рекомендация собрана на основе твоих ответов, сильных сторон и интересов.');
+      ? context.loc.whyProfessionEmpty
+      : (explanation ?? context.loc.whyProfessionDefault);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -454,10 +457,10 @@ class _Alternatives extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Альтернативные профессии',
+              context.loc.alternatives,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -533,7 +536,7 @@ class _Alternatives extends StatelessWidget {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                'Схожесть: $percent%',
+                                '${context.loc.similarity}: $percent%',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -572,8 +575,8 @@ class _CoursesBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Курсы по результатам',
+          Text(
+            context.loc.coursesTitle,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -682,11 +685,11 @@ class _CourseDetailsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = course['title']?.toString() ?? 'Курс';
+    final title = course['title']?.toString() ?? context.loc.courseTitle;
     final provider = course['provider']?.toString() ?? 'Proffy Academy';
     final description = course['description']?.toString() ?? '';
-    final level = course['level']?.toString() ?? 'Начальный';
-    final duration = course['duration']?.toString() ?? '4 недели';
+    final level = course['level']?.toString() ?? context.loc.defaultCourseLevel;
+    final duration = course['duration']?.toString() ?? context.loc.defaultCourseDuration;
 
     return SafeArea(
       child: Padding(
@@ -732,8 +735,8 @@ class _CourseDetailsSheet extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              const Text(
-                'О курсе',
+              Text(
+                context.loc.aboutCourse,
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -748,18 +751,18 @@ class _CourseDetailsSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Что ты получишь',
+              Text(
+                context.loc.whatYouGet,
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 10),
-              const _CourseBullet(text: 'Поймёшь основы этого направления'),
-              const _CourseBullet(text: 'Сможешь попробовать себя в профессии'),
-              const _CourseBullet(text: 'Соберёшь первые практические навыки'),
-              const _CourseBullet(text: 'Поймёшь, подходит ли тебе эта сфера'),
+              _CourseBullet(text: context.loc.understandBasics),
+              _CourseBullet(text: context.loc.tryProfession),
+              _CourseBullet(text: context.loc.practiceSkills),
+              _CourseBullet(text: context.loc.understandSphere),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
@@ -768,7 +771,7 @@ class _CourseDetailsSheet extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.check_circle_outline),
-                  label: const Text('Понятно'),
+                  label: Text(context.loc.understood),
                 ),
               ),
             ],
@@ -897,7 +900,7 @@ class _ErrorState extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Повторить'),
+              child: Text(context.loc.retry),
             ),
           ],
         ),

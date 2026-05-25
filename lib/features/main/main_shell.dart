@@ -3,6 +3,7 @@ import 'package:career_guidance_app/features/ai/ai_screen.dart';
 import 'package:career_guidance_app/features/modules/modules_screen.dart';
 import 'package:career_guidance_app/features/modules/recommendation_result_screen.dart';
 import 'package:career_guidance_app/features/profile/profile_screen.dart';
+import '../../core/services/localization_extension.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -35,26 +36,26 @@ class _MainShellState extends State<MainShell> {
             _selectedIndex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard_rounded),
-            label: 'Модули',
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard_rounded),
+            label: context.loc.navModules,
           ),
           NavigationDestination(
-            icon: Icon(Icons.workspace_premium_outlined),
-            selectedIcon: Icon(Icons.workspace_premium),
-            label: 'Итог',
+            icon: const Icon(Icons.workspace_premium_outlined),
+            selectedIcon: const Icon(Icons.workspace_premium),
+            label: context.loc.navResult,
           ),
           NavigationDestination(
-            icon: Icon(Icons.smart_toy_outlined),
-            selectedIcon: Icon(Icons.smart_toy),
-            label: 'AI',
+            icon: const Icon(Icons.smart_toy_outlined),
+            selectedIcon: const Icon(Icons.smart_toy),
+            label: context.loc.navAi,
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Профиль',
+            icon: const Icon(Icons.person_outline),
+            selectedIcon: const Icon(Icons.person),
+            label: context.loc.navProfile,
           ),
         ],
       ),

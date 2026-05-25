@@ -3,6 +3,7 @@ import 'package:career_guidance_app/data/models/module_question_model.dart';
 import 'package:career_guidance_app/data/models/module_submit_model.dart';
 import 'package:career_guidance_app/data/services/assessment_service.dart';
 import 'package:career_guidance_app/features/auth/auth_controller.dart';
+import '../../core/services/localization_extension.dart';
 
 class ModuleTestScreen extends StatefulWidget {
   final String moduleCode;
@@ -71,7 +72,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
 
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Не найден userId')),
+        SnackBar(content: Text(context.loc.userIdNotFound)),
       );
       return;
     }
@@ -80,8 +81,8 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
 
     if (_selectedAnswers.length != data.questions.length) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Пожалуйста, ответьте на все вопросы'),
+        SnackBar(
+          content: Text(context.loc.answerAllQuestions),
         ),
       );
       return;
@@ -107,7 +108,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Модуль успешно завершён')),
+        SnackBar(content: Text(context.loc.moduleCompletedSuccess)),
       );
 
       Navigator.pop(context, true);
@@ -129,10 +130,11 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
   @override
   Widget build(BuildContext context) {
     final data = _data;
+    final languageCode = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Прохождение модуля'),
+        title: Text(context.loc.moduleTestTitle),
       ),
       body: SafeArea(
         child: _isLoading
@@ -144,7 +146,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                   )
                 : data == null
                     ? _ModuleErrorState(
-                        message: 'Данные модуля не найдены',
+                        message: context.loc.moduleDataNotFound,
                         onRetry: _loadQuestions,
                       )
                     : Column(
@@ -154,7 +156,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                               padding: const EdgeInsets.all(16),
                               children: [
                                 Text(
-                                  data.moduleTitle,
+                                  data.localizedTitle(languageCode),
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
@@ -162,7 +164,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  data.moduleDescription,
+                                  data.localizedDescription(languageCode),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -184,7 +186,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '${question.order}. ${question.text}',
+                                              '${question.order}. ${question.localizedText(languageCode)}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
@@ -192,11 +194,11 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                             ),
-                                            if (question.description != null &&
-                                                question.description!.isNotEmpty) ...[
-                                              const SizedBox(height: 6),
-                                              Text(question.description!),
-                                            ],
+                                            if (question.localizedDescription(languageCode) != null &&
+                                                  question.localizedDescription(languageCode)!.isNotEmpty) ...[
+                                                const SizedBox(height: 6),
+                                                Text(question.localizedDescription(languageCode)!),
+                                              ],
                                             const SizedBox(height: 12),
                                             ...question.options.map(
                                               (option) => RadioListTile<int>(
@@ -204,7 +206,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                                                 groupValue:
                                                     _selectedAnswers[question.id],
                                                 contentPadding: EdgeInsets.zero,
-                                                title: Text(option.text),
+                                                title: Text(option.localizedText(languageCode)),
                                                 onChanged: (value) {
                                                   if (value == null) return;
                                                   setState(() {
@@ -238,7 +240,7 @@ class _ModuleTestScreenState extends State<ModuleTestScreen> {
                                           strokeWidth: 2,
                                         ),
                                       )
-                                    : const Text('Завершить модуль'),
+                                    : Text(context.loc.finishModule),
                               ),
                             ),
                           ),
@@ -275,7 +277,7 @@ class _ModuleErrorState extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Повторить'),
+              child: Text(context.loc.retry),
             ),
           ],
         ),

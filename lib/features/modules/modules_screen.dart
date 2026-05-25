@@ -6,6 +6,7 @@ import 'package:career_guidance_app/data/models/assessment_module_model.dart';
 import 'package:career_guidance_app/data/models/modules_progress_model.dart';
 import 'package:career_guidance_app/data/services/assessment_service.dart';
 import 'package:career_guidance_app/features/auth/auth_controller.dart';
+import '../../core/services/localization_extension.dart';
 
 class ModulesScreen extends StatefulWidget {
   const ModulesScreen({super.key});
@@ -102,15 +103,15 @@ class _ModulesScreenState extends State<ModulesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Модули профориентации'),
+        title: Text(context.loc.modulesAppBarTitle),
         actions: [
           IconButton(
-            tooltip: 'Обновить',
+            tooltip: context.loc.refresh,
             onPressed: _loadModules,
             icon: const Icon(Icons.refresh),
           ),
           IconButton(
-            tooltip: 'Выйти',
+            tooltip: context.loc.logout,
             onPressed: _logout,
             icon: const Icon(Icons.logout),
           ),
@@ -126,7 +127,7 @@ class _ModulesScreenState extends State<ModulesScreen> {
                   )
                 : _progress == null
                     ? _ErrorState(
-                        message: 'Нет данных по модулям',
+                        message: context.loc.modulesNoData,
                         onRetry: _loadModules,
                       )
                     : RefreshIndicator(
@@ -137,7 +138,7 @@ class _ModulesScreenState extends State<ModulesScreen> {
                             _ProgressCard(progress: _progress!),
                             const SizedBox(height: 16),
                             Text(
-                              'Пройди все модули, чтобы открыть итоговые рекомендации',
+                              context.loc.modulesIntro,
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.colorScheme.onSurfaceVariant,
                               ),
@@ -159,7 +160,7 @@ class _ModulesScreenState extends State<ModulesScreen> {
                                   ? _openRecommendations
                                   : null,
                               icon: const Icon(Icons.workspace_premium_outlined),
-                              label: const Text('Посмотреть рекомендации'),
+                              label: Text(context.loc.viewRecommendations),
                             ),
                           ],
                         ),
@@ -177,6 +178,7 @@ class _ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    
     final value = progress.totalModules == 0
         ? 0.0
         : progress.completedModules / progress.totalModules;
@@ -204,7 +206,7 @@ class _ProgressCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Твой прогресс',
+            context.loc.yourProgress,
             style: theme.textTheme.titleLarge?.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
@@ -212,7 +214,10 @@ class _ProgressCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            '${progress.completedModules} из ${progress.totalModules} модулей завершено',
+            context.loc.modulesCompleted(
+              progress.completedModules,
+              progress.totalModules,
+            ),
             style: theme.textTheme.bodyLarge?.copyWith(
               color: Colors.white.withOpacity(0.95),
             ),
@@ -252,6 +257,8 @@ class _ModuleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final languageCode = Localizations.localeOf(context).languageCode;
+
 
     return Card(
       elevation: 0,
@@ -276,14 +283,14 @@ class _ModuleCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      module.title,
+                      module.localizedTitle(languageCode),
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      module.description,
+                      module.localizedDescription(languageCode),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -299,7 +306,7 @@ class _ModuleCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Text(
-                        _statusText(),
+                        _statusText(context),
                         style: TextStyle(
                           color: _statusColor(context),
                           fontWeight: FontWeight.w600,
@@ -328,14 +335,14 @@ class _ModuleCard extends StatelessWidget {
     return Icons.radio_button_unchecked;
   }
 
-  String _statusText() {
+  String _statusText(BuildContext context) {
     if (module.isCompleted) {
-      return 'Пройден';
+      return context.loc.moduleCompleted;
     }
     if (module.isInProgress) {
-      return 'В процессе';
+      return context.loc.moduleInProgress;
     }
-    return 'Не начат';
+    return context.loc.moduleNotStarted;
   }
 
   Color _statusColor(BuildContext context) {
@@ -377,7 +384,7 @@ class _ErrorState extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Повторить'),
+              child: Text(context.loc.retry),
             ),
           ],
         ),

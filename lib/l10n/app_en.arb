@@ -1,0 +1,132 @@
+{
+  "@@locale": "en",
+
+  "appName": "Bota",
+  "login": "Login",
+  "register": "Register",
+  "profile": "Profile",
+
+  "language": "Language",
+  "refresh": "Refresh",
+
+    "profileTitle": "Profile",
+
+    "logoutTitle": "Log out?",
+    "logoutDescription": "Do you really want to log out?",
+    "cancel": "Cancel",
+    "logout": "Log out",
+
+    "aboutApp": "About app",
+
+    "purpose": "Purpose",
+    "purposeDescription": "Career guidance for school students",
+
+    "function": "Function",
+    "functionDescription": "Interest and direction testing",
+
+    "result": "Result",
+    "resultDescription": "Career recommendations based on test results",
+
+    "aiAssistant": "AI Assistant",
+    "aiAssistantDescription": "Answers to career guidance questions",
+
+    "myAccount": "My account",
+
+    "userName": "Username",
+    "email": "Email",
+    "status": "Status",
+    "accountActive": "Account active",
+
+    "myProgress": "My progress",
+
+    "modulesTitle": "Career modules",
+    "modulesDescription": "Complete modules sequentially for more accurate recommendations.",
+
+    "recommendationsTitle": "Final recommendations",
+    "recommendationsDescription": "After completing modules, view suitable careers and courses.",
+
+    "quickActions": "Quick actions",
+
+    "goToModules": "Go to modules",
+    "goToModulesDescription": "Open career modules",
+
+    "openRecommendations": "View recommendations",
+    "openRecommendationsDescription": "Open final results screen",
+
+    "openAi": "Open AI assistant",
+    "openAiDescription": "Ask questions about professions",
+
+    "logoutAction": "Log out",
+    "logoutActionDescription": "End current session",
+
+    "helpfulTips": "Helpful tips",
+
+    "tipModules": "Complete all modules",
+    "tipModulesDescription": "This helps the system choose a more accurate profession for you.",
+
+    "tipUpdate": "Update results",
+    "tipUpdateDescription": "If answers change, recommendations also change.",
+
+    "tipCourses": "Explore courses",
+    "tipCoursesDescription": "After results, explore courses and try professions.",
+
+    "profileFooter": "Proffy · career guidance and recommendations",
+
+    "profileCabinet": "Your personal Proffy account",
+
+    "navModules": "Modules",
+    "navResult": "Result",
+    "navAi": "AI",
+    "navProfile": "Profile",
+
+    "modulesAppBarTitle": "Career guidance modules",
+    "modulesIntro": "Complete all modules to unlock final recommendations",
+    "modulesNoData": "No module data",
+    "viewRecommendations": "View recommendations",
+    "yourProgress": "Your progress",
+    "modulesCompleted": "{completed} of {total} modules completed",
+    "moduleCompleted": "Completed",
+    "moduleInProgress": "In progress",
+    "moduleNotStarted": "Not started",
+    "retry": "Retry",
+
+    "moduleTestTitle": "Module test",
+    "userIdNotFound": "User ID not found",
+    "answerAllQuestions": "Please answer all questions",
+    "moduleCompletedSuccess": "Module completed successfully",
+    "moduleDataNotFound": "Module data not found",
+    "finishModule": "Finish module",
+    "resultTitle":"Result",
+    "yourProfession":"Your profession",
+    "professionNotDefined":"Profession is not defined yet",
+    "finishModulesForResult":"Complete at least one module for accurate results",
+    "modulesProgress":"Modules progress",
+    "profileTitle":"User profile",
+    "hide":"Hide",
+    "showAll":"Show all",
+    "profileUnavailable":"Profile data unavailable",
+    "temperament":"Temperament",
+    "thinkingStyle":"Thinking style",
+    "studyProfile":"Study profile",
+    "values":"Values",
+    "direction":"Direction",
+    "antiDirection":"Anti direction",
+    "alternatives":"Alternative professions",
+    "similarity":"Similarity",
+    "coursesTitle":"Recommended courses",
+    "courseTitle":"Course",
+    "aboutCourse":"About course",
+    "whatYouGet":"What you get",
+    "understandBasics":"Understand the basics",
+    "tryProfession":"Try yourself in profession",
+    "practiceSkills":"Gain practical skills",
+    "understandSphere":"Understand if this field suits you",
+    "understood":"Got it",
+    "recommendationEmptyBanner": "Complete the modules so we can suggest a suitable profession and show the match percentage.",
+    "recommendationPartialBanner": "This is a preliminary result: {completed} of {total} modules completed. Complete all modules to make the recommendation more accurate.",
+    "whyProfessionEmpty": "After completing the modules, we will show why this profession suits you.",
+    "whyProfessionDefault": "This recommendation is based on your answers, strengths, and interests.",
+    "defaultCourseLevel": "Beginner",
+    "defaultCourseDuration": "4 weeks",
+    "userNotFoundLoginAgain": "User not found. Please log in again."
+}

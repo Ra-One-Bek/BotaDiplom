@@ -55,7 +55,10 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       );
 
-      Navigator.pushReplacementNamed(context, AppRouter.main);
+      Navigator.pushReplacementNamed(
+        context,
+        isLoginMode ? AppRouter.main : AppRouter.language,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
