@@ -4,6 +4,7 @@ import 'package:career_guidance_app/features/modules/modules_screen.dart';
 import 'package:career_guidance_app/features/modules/recommendation_result_screen.dart';
 import 'package:career_guidance_app/features/profile/profile_screen.dart';
 import '../../core/services/localization_extension.dart';
+import 'package:career_guidance_app/features/universities/universities_screen.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -18,6 +19,7 @@ class _MainShellState extends State<MainShell> {
   final List<Widget> _screens = const [
     ModulesScreen(),
     RecommendationResultScreen(),
+    UniversitiesScreen(),
     AiScreen(),
     ProfileScreen(),
   ];
@@ -46,6 +48,11 @@ class _MainShellState extends State<MainShell> {
             icon: const Icon(Icons.workspace_premium_outlined),
             selectedIcon: const Icon(Icons.workspace_premium),
             label: context.loc.navResult,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.school_outlined),
+            selectedIcon: const Icon(Icons.school_rounded),
+            label: 'University',
           ),
           NavigationDestination(
             icon: const Icon(Icons.smart_toy_outlined),
